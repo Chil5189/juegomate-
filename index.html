@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cazador de primos</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="logic.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <section id="screen-start" class="screen screen-start">
+      <h1>Cazador de primos</h1>
+      <p class="intro">Toca <strong>solo los números primos</strong> del panel. Cuando los encuentres todos, aparece un panel nuevo.</p>
+      <p class="hint">Un número primo solo se divide entre 1 y entre sí mismo.</p>
+      <div class="mode-buttons">
+        <button type="button" class="btn btn-mode" data-mode="practice">
+          Práctica
+          <small>Sin tiempo. Aprende con calma.</small>
+        </button>
+        <button type="button" class="btn btn-mode btn-pro" data-mode="pro">
+          Pro
+          <small>60 segundos. ¿Cuánto aguantas?</small>
+        </button>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen screen-game" hidden>
+      <header class="hud">
+        <span id="hud-mode" class="hud-mode"></span>
+        <span class="hud-stat">Puntos <strong id="hud-score">0</strong></span>
+        <span class="hud-stat">Paneles <strong id="hud-panels">0</strong></span>
+        <span id="hud-time" class="hud-time" hidden>60</span>
+      </header>
+      <div id="timebar" class="timebar" hidden><div id="timebar-fill" class="timebar-fill"></div></div>
+      <div id="board" class="board"></div>
+      <p id="feedback" class="feedback" aria-live="polite"></p>
+      <button type="button" id="btn-finish" class="btn btn-finish" hidden>Terminar</button>
+    </section>
+
+    <section id="screen-results" class="screen screen-results" hidden>
+      <h2 id="results-title"></h2>
+      <p id="results-mode" class="results-mode"></p>
+      <dl class="results-stats">
+        <div><dt>Puntos</dt><dd id="res-score">0</dd></div>
+        <div><dt>Aciertos</dt><dd id="res-correct">0</dd></div>
+        <div><dt>Errores</dt><dd id="res-wrong">0</dd></div>
+        <div><dt>Paneles</dt><dd id="res-panels">0</dd></div>
+      </dl>
+      <p id="res-message" class="results-message"></p>
+      <p id="res-mistakes" class="results-mistakes" hidden></p>
+      <div class="results-buttons">
+        <button type="button" id="btn-again" class="btn">Jugar otra vez</button>
+        <button type="button" id="btn-home" class="btn btn-secondary">Inicio</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
