@@ -20,11 +20,21 @@ test('ningún número trampa es primo', () => {
   for (const n of L.TRAP_NUMBERS) assert.equal(L.isPrime(n), false, String(n));
 });
 
-test('explain muestra el menor factor primo', () => {
+test('explain muestra la descomposición en factores primos', () => {
   assert.equal(L.explain(1), '1 no es primo: solo tiene un divisor');
   assert.equal(L.explain(4), '4 = 2 × 2');
   assert.equal(L.explain(21), '21 = 3 × 7');
   assert.equal(L.explain(91), '91 = 7 × 13');
+  assert.equal(L.explain(27), '27 = 3 × 3 × 3');
+  assert.equal(L.explain(60), '60 = 2 × 2 × 3 × 5');
+});
+
+test('el producto de los factores primos devuelve el número', () => {
+  for (let n = 2; n <= 100; n++) {
+    const f = L.primeFactors(n);
+    assert.equal(f.reduce((a, b) => a * b, 1), n);
+    assert.ok(f.every(L.isPrime), String(n));
+  }
 });
 
 function checkPanels(rules, runs) {

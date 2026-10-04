@@ -27,15 +27,47 @@
       </div>
     </section>
 
+    <section id="screen-instructions" class="screen screen-instructions" hidden>
+      <span id="instr-mode" class="mode-pill"></span>
+      <h2>¿Cómo se juega?</h2>
+      <!-- Reglas de cada modo: si cambias puntos o tiempos en game.js, actualiza estos textos. -->
+      <ul class="rules" data-instructions="practice" hidden>
+        <li><strong>Sin tiempo:</strong> juega con calma.</li>
+        <li>Toca solo los <strong>números primos</strong>. Cada acierto vale <strong>10 puntos</strong>.</li>
+        <li>Si te equivocas no pierdes puntos: verás por qué ese número no es primo.</li>
+        <li>Al encontrar los 5 primos de un panel aparece uno nuevo.</li>
+        <li>Toca <strong>Terminar</strong> cuando quieras ver tus resultados.</li>
+      </ul>
+      <ul class="rules" data-instructions="pro" hidden>
+        <li>Empiezas con <strong>60 segundos</strong>.</li>
+        <li>Acierto: <strong>+5 puntos</strong> y <strong>+1 segundo</strong>.</li>
+        <li>Error: <strong>−5 segundos</strong>.</li>
+        <li>Panel completo: <strong>+3 segundos</strong>.</li>
+        <li>La partida termina cuando el tiempo llega a 0. ¡Aguanta lo más que puedas!</li>
+      </ul>
+      <div class="stack-buttons">
+        <button type="button" id="btn-go" class="btn">¡Empezar!</button>
+        <button type="button" id="btn-back" class="btn btn-secondary">Volver</button>
+      </div>
+    </section>
+
     <section id="screen-game" class="screen screen-game" hidden>
       <header class="hud">
-        <span id="hud-mode" class="hud-mode"></span>
-        <span class="hud-stat">Puntos <strong id="hud-score">0</strong></span>
-        <span class="hud-stat">Paneles <strong id="hud-panels">0</strong></span>
-        <span id="hud-time" class="hud-time" hidden>60</span>
+        <div class="hud-top">
+          <span id="hud-mode" class="mode-pill"></span>
+          <button type="button" id="btn-exit" class="btn btn-exit">Salir</button>
+        </div>
+        <div class="hud-cards">
+          <div class="hud-card"><span class="hud-label">Puntos</span><strong id="hud-score">0</strong></div>
+          <div class="hud-card"><span class="hud-label">Panel</span><strong id="hud-panel">1</strong></div>
+          <div id="hud-time-card" class="hud-card" hidden><span class="hud-label">Tiempo</span><strong id="hud-time">60</strong></div>
+        </div>
       </header>
       <div id="timebar" class="timebar" hidden><div id="timebar-fill" class="timebar-fill"></div></div>
-      <div id="board" class="board"></div>
+      <div class="board-wrap">
+        <div id="board" class="board"></div>
+        <div id="countdown" class="countdown" hidden aria-live="assertive"></div>
+      </div>
       <p id="feedback" class="feedback" aria-live="polite"></p>
       <button type="button" id="btn-finish" class="btn btn-finish" hidden>Terminar</button>
     </section>
@@ -51,11 +83,20 @@
       </dl>
       <p id="res-message" class="results-message"></p>
       <p id="res-mistakes" class="results-mistakes" hidden></p>
-      <div class="results-buttons">
+      <div class="stack-buttons">
         <button type="button" id="btn-again" class="btn">Jugar otra vez</button>
         <button type="button" id="btn-home" class="btn btn-secondary">Inicio</button>
       </div>
     </section>
   </main>
+
+  <dialog id="exit-dialog" class="exit-dialog">
+    <p class="dialog-title">¿Salir de la partida?</p>
+    <p class="hint">Perderás lo que llevas en esta partida.</p>
+    <div class="stack-buttons">
+      <button type="button" id="btn-stay" class="btn">Seguir jugando</button>
+      <button type="button" id="btn-exit-confirm" class="btn btn-danger">Salir</button>
+    </div>
+  </dialog>
 </body>
 </html>

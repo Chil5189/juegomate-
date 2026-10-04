@@ -136,41 +136,115 @@ body {
   background: var(--pro-dark);
 }
 
+/* Instrucciones */
+
+.screen-instructions {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.screen-instructions h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.rules {
+  width: 100%;
+  margin: 0;
+  padding: 16px 16px 16px 36px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-align: left;
+  line-height: 1.4;
+}
+
+.rules li + li {
+  margin-top: 8px;
+}
+
+.screen-instructions .stack-buttons {
+  width: 100%;
+}
+
+/* Etiqueta del modo */
+
+.mode-pill {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mode-pill.is-pro {
+  background: var(--pro);
+}
+
 /* Juego */
 
 .hud {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hud-top {
+  display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.btn-exit {
+  min-height: 40px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  background: var(--surface);
+  color: var(--muted);
+  border: 2px solid var(--border);
+}
+
+.btn-exit:active {
+  background: var(--bg);
+}
+
+.hud-cards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 8px;
-  font-size: 0.95rem;
+}
+
+.hud-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(29, 36, 51, 0.06);
+}
+
+.hud-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
-.hud strong {
-  color: var(--text);
-  font-size: 1.1rem;
-}
-
-.hud-mode {
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.hud-mode.is-pro {
-  color: var(--pro);
-}
-
-.hud-time {
-  min-width: 3ch;
+.hud-card strong {
   font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text);
-  text-align: right;
+  line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
 
-.hud-time.is-low {
+.hud-card strong.is-low {
   color: var(--wrong);
 }
 
@@ -192,15 +266,87 @@ body {
   background: var(--wrong);
 }
 
+.board-wrap {
+  position: relative;
+  width: 100%;
+  /* Cabe a lo ancho y a lo alto sin scroll (deja espacio al marcador y al resto). */
+  max-width: min(420px, calc(100dvh - 300px));
+  min-width: 216px; /* 4 × 48 px + huecos */
+  margin: 0 auto;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   width: 100%;
-  /* Cabe a lo ancho y a lo alto sin scroll (deja espacio al resto de la pantalla). */
-  max-width: min(420px, calc(100dvh - 250px));
-  min-width: 216px; /* 4 × 48 px + huecos */
-  margin: 0 auto;
+}
+
+/* Cuenta regresiva: los números no se ven ni se pueden tocar. */
+.board.is-hidden-cells {
+  pointer-events: none;
+}
+
+.board.is-hidden-cells .cell {
+  color: transparent;
+}
+
+.countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  background: rgba(244, 246, 251, 0.75);
+  color: var(--primary);
+  font-size: 5rem;
+  font-weight: 800;
+}
+
+.countdown.is-pro {
+  color: var(--pro);
+}
+
+.countdown span {
+  animation: count-pop 0.9s ease-out both;
+}
+
+@keyframes count-pop {
+  from {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Aviso de tiempo bajo en Pro: las tarjetas tiemblan. */
+.board.is-warning .cell {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+.board.is-warning .cell:nth-child(odd) {
+  animation-delay: -0.25s;
+}
+
+.board.is-warning .cell:nth-child(3n) {
+  animation-duration: 0.45s;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  25% {
+    transform: translate(-2px, 1px) rotate(-1deg);
+  }
+  75% {
+    transform: translate(2px, -1px) rotate(1deg);
+  }
 }
 
 .board.is-new {
@@ -329,8 +475,56 @@ body {
   color: var(--wrong);
 }
 
-.results-buttons {
+.stack-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/* Confirmación de salida */
+
+.exit-dialog {
+  width: min(320px, calc(100vw - 32px));
+  padding: 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(29, 36, 51, 0.25);
+}
+
+.exit-dialog::backdrop {
+  background: rgba(29, 36, 51, 0.5);
+}
+
+.dialog-title {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.exit-dialog .hint {
+  margin-bottom: 16px;
+}
+
+.btn-danger {
+  background: var(--wrong);
+}
+
+.btn-danger:active {
+  background: #a51f1f;
+}
+
+/* Sin movimiento si el dispositivo lo pide: el aviso es un borde rojo. */
+@media (prefers-reduced-motion: reduce) {
+  .board.is-new,
+  .countdown span {
+    animation: none;
+  }
+
+  .board.is-warning .cell {
+    animation: none;
+    border-color: var(--wrong);
+  }
 }

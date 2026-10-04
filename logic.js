@@ -29,14 +29,23 @@
     return Number.isInteger(n) && n >= 0 && n <= MAX && primeTable[n];
   }
 
-  // "21 = 3 × 7": menor factor primo por el cociente.
+  // Factores primos de menor a mayor: 60 -> [2, 2, 3, 5].
+  function primeFactors(n) {
+    const factors = [];
+    for (let p = 2; n > 1; p++) {
+      while (n % p === 0) {
+        factors.push(p);
+        n /= p;
+      }
+    }
+    return factors;
+  }
+
+  // "27 = 3 × 3 × 3": descomposición completa en factores primos.
   function explain(n) {
     if (n === 1) return '1 no es primo: solo tiene un divisor';
     if (isPrime(n)) return n + ' es primo';
-    for (let p = 2; p <= n; p++) {
-      if (n % p === 0) return n + ' = ' + p + ' × ' + n / p;
-    }
-    return '';
+    return n + ' = ' + primeFactors(n).join(' × ');
   }
 
   // Elige k elementos distintos de arr (Fisher–Yates parcial).
@@ -97,6 +106,7 @@
     BIG_PRIMES,
     TRAP_NUMBERS,
     isPrime,
+    primeFactors,
     explain,
     generatePanel,
     panelRules,
