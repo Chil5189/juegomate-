@@ -7,7 +7,16 @@ Juego web para que alumnos de 2º de secundaria aprendan a reconocer los número
 - **Práctica:** sin tiempo. Cada acierto vale 10 puntos y los errores solo muestran la explicación (por ejemplo "21 = 3 × 7"). Los primeros 3 paneles usan números del 1 al 30.
 - **Pro:** sobrevivencia de 60 segundos. Cada acierto vale 5 puntos y +1 s, cada error resta 5 s y cada panel completo da +3 s.
 
-Al terminar se muestran los puntos, los aciertos, los errores y los números en los que el alumno se confundió.
+Cada partida sigue este orden:
+
+1. El alumno elige un modo y ve sus **instrucciones**. "¡Empezar!" inicia la partida y "Volver" regresa al inicio.
+2. Una **cuenta regresiva** ("3, 2, 1, ¡Ya!") oculta el panel. En Pro, el reloj empieza a correr al terminar la cuenta.
+3. Durante la partida, el marcador muestra el modo, los puntos, el panel actual y, en Pro, el tiempo. En Pro, con 10 segundos o menos las tarjetas tiemblan.
+4. Si te equivocas, verás la descomposición en factores primos del número (por ejemplo "27 = 3 × 3 × 3").
+5. **Salir** pide confirmación y regresa al inicio sin resultados. En Pro, el reloj se pausa mientras se decide.
+6. Al terminar se muestran los puntos, los aciertos, los errores y los números en los que el alumno se confundió. "Jugar otra vez" repite el mismo modo, sin volver a mostrar las instrucciones.
+
+Las reglas de cada modo que se muestran antes de jugar están escritas en `index.html`. Si cambias los puntos o los tiempos en `game.js`, actualiza también esos textos.
 
 ## Archivos
 

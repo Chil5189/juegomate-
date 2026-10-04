@@ -82,7 +82,7 @@ Al tocar un número que no es primo, el juego SHALL marcarlo como error de forma
 - **THEN** no se cuenta un error nuevo
 
 ### Requirement: Explicación de los errores
-La explicación de un número compuesto SHALL mostrarlo como el producto de su menor factor primo por el cociente correspondiente.
+La explicación de un número compuesto SHALL mostrarlo como su descomposición completa en factores primos, ordenados de menor a mayor y separados por "×".
 
 #### Scenario: Compuesto con factores grandes
 - **WHEN** el alumno toca el 91
@@ -91,6 +91,14 @@ La explicación de un número compuesto SHALL mostrarlo como el producto de su m
 #### Scenario: Cuadrado
 - **WHEN** el alumno toca el 4
 - **THEN** el mensaje es "4 = 2 × 2"
+
+#### Scenario: Factor primo repetido
+- **WHEN** el alumno toca el 27
+- **THEN** el mensaje es "27 = 3 × 3 × 3"
+
+#### Scenario: Varios factores primos distintos
+- **WHEN** el alumno toca el 60
+- **THEN** el mensaje es "60 = 2 × 2 × 3 × 5"
 
 ### Requirement: Panel completo
 Cuando el alumno haya marcado los 5 primos del panel, el juego SHALL mostrar automáticamente un panel nuevo.
